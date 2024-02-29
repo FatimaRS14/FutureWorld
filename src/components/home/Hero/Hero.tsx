@@ -1,7 +1,13 @@
+import styles from './Hero.module.css'
+
 export const Hero = () => {
     return(
-        <div>
-            Hola
-        </div>
-    )
+        <section className={styles.Hero}>
+
+            <h1>Future World</h1>
+
+            <h2>Empodering Your Tomorrow, Today!</h2>
+
+        </section>
+    )   
 }
