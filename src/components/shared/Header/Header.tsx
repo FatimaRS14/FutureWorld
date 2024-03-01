@@ -1,7 +1,8 @@
 import Link from "next/link";
 
+
 export const Header = () => {
-    console.log('Hello world header')
+   
     return(
 
         <header>
