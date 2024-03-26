@@ -1,5 +1,5 @@
 import { ProductsWrapper } from "app/components/store/ProductsWrapper"
-import { getProductos } from "app/services/shopify"
+import { getProductos } from "app/services/shopify/products"
 
 
 interface CategoryProps{
@@ -13,8 +13,7 @@ interface CategoryProps{
 
 export default async function Category(props: CategoryProps){
 
-    const products = await getProductos()
-
+    const products = await getProductos() //dataFetching de forma paralela
     const { categories } = props.params
     
     return(
