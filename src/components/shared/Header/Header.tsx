@@ -1,29 +1,32 @@
-import Link from "next/link";
+import Link from 'next/link'
+import { validateAccessToken } from 'app/utils/auth/validateAccessToken'
 import styles from './Header.module.sass'
-import { cookies } from "next/headers";
+import dynamic from 'next/dynamic'
 
+//const NoSSRShoppingCart = dynamic(() => import('../ShoppingCart'), { ssr: false })
 
-export const Header = () => {
-    const cookiesStore = cookies()
-    const token = cookiesStore.get('accesToken')?.value
-   
-    return(
+export const Header = async () => {
+  const customer = await validateAccessToken()
 
-        <header>
-            <nav>
-                <ul className={styles.Header__list}>
-                    <Link href="/">
-                    <li>Home</li>
-                    </Link>
-
-                    <Link href="/store">
-                    <li>Store</li>
-                    </Link>
-
-                
-                </ul>
-                {token ? (<p>Hola!</p>): (<Link href="/login">Login</Link>)}
-            </nav>
-        </header>
-    )
+  return (
+    <header className={styles.Header}>
+      <nav>
+        <ul className={styles.Header__list}>
+          <li>
+            <Link href="/">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/store">
+              Store
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <div className={styles.Header__user}>
+        {customer?.firstName ? (<Link href="/my-account">Hola! {customer.firstName}</Link>) : (<Link href="/login">Login</Link>)}
+        //<NoSSRShoppingCart />
+      </div>
+    </header>)
 }
